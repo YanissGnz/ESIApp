@@ -72,9 +72,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
             tvTitle = itemView.findViewById(R.id.post_subject);
             tvDescription=itemView.findViewById(R.id.post_description);
-            imgPost = itemView.findViewById(R.id.post_photo);
+            imgPost = itemView.findViewById(R.id.post_picture);
             imgPostProfile = itemView.findViewById(R.id.profile_picture);
-            // imgPost.setMaxHeight(400);
+            imgPost.setMaxHeight(400);
             time = itemView.findViewById(R.id.post_date);
 
 
