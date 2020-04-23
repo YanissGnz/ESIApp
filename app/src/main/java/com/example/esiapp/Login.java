@@ -64,7 +64,7 @@ public class Login extends AppCompatActivity {
                             public void onFailure(@NonNull Exception e) {
                                 login.setVisibility(View.VISIBLE);
                                 progressBar.setVisibility(View.INVISIBLE);
-                                Toast.makeText(Login.this, "Email or Password incorrect ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Login.this, "Email or Password incorrect or verify your network connection ", Toast.LENGTH_SHORT).show();
                             }
                         });
                 }
