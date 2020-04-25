@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -118,7 +117,6 @@ public class AddPost extends AppCompatActivity {
         });
     }
 
-
     @Override
     public void finish() {
         super.finish();
@@ -127,10 +125,11 @@ public class AddPost extends AppCompatActivity {
     // elle permet de definir les vues de l'activity
     public void setView() {
         exit = findViewById(R.id.addpost_exit);
-        postImage = findViewById(R.id.post_photo);
+        postImage = findViewById(R.id.post_photo_container);
         postButton = findViewById(R.id.post_button);
         subject = findViewById(R.id.subject);
         description = findViewById(R.id.descreption);
+        description.setMaxHeight(500);
         progressbar = findViewById(R.id.add_post_progressBar);
         progressbar.setVisibility(View.INVISIBLE);
         mAuth = FirebaseAuth.getInstance();
