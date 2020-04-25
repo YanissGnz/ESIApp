@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">test</string>
+    <string name="app_name">Esi Plus</string>
     <string name="home">Home</string>
     <string name="courses">Courses</string>
     <string name="planner">Planner</string>
@@ -50,4 +50,16 @@
     <string name="create_post">Create Post</string>
     <string name="post">Post</string>
     <string name="optional">(Optional)</string>
+    <string name="account">Account</string>
+    <string name="information">Information</string>
+    <string name="off">Off</string>
+    <string name="on">On</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="forget_password">Forget Password ?</string>
+    <string name="don_t_have_an_account">Don\'t have an account ?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="full_name">Full Name</string>
+    <string name="verify_password">Verify Password</string>
+    <string name="enter_your_email">Enter Your Email</string>
 </resources>
