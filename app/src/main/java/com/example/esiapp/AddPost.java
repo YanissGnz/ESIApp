@@ -129,6 +129,7 @@ public class AddPost extends AppCompatActivity {
         postButton = findViewById(R.id.post_button);
         subject = findViewById(R.id.subject);
         description = findViewById(R.id.descreption);
+        description.setMaxHeight(500);
         progressbar = findViewById(R.id.add_post_progressBar);
         progressbar.setVisibility(View.INVISIBLE);
         mAuth = FirebaseAuth.getInstance();

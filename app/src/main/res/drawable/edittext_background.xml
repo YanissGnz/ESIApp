@@ -12,8 +12,8 @@
             <stroke
                 android:dashGap="10px"
                 android:dashWidth="0dp"
-                android:width="2dp"
-                android:color="#0090FF" />
+                android:width="0.5dp"
+                android:color="@color/mute" />
         </shape>
     </item>
 
