@@ -27,7 +27,8 @@
                 app:layout_constraintHorizontal_bias="0.504"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/male"/>
+                app:srcCompat="@drawable/male"
+                android:transitionName="post_pic"/>
 
             <TextView
                 android:id="@+id/post_detail_subject"

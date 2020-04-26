@@ -1,7 +1,4 @@
 package com.example.esiapp.fragment;
-
-
-
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,9 +23,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
-
 public class HomeFragment extends Fragment {
     private RecyclerView postRecyclerView;
     private PostAdapter postAdapter;
@@ -53,8 +49,6 @@ public class HomeFragment extends Fragment {
         databaseReference = firebaseDatabase.getReference("Posts");
         return fragmentView;
     }
-
-
     @Override
     public void onStart() {
         super.onStart();
@@ -68,6 +62,7 @@ public class HomeFragment extends Fragment {
                     Post post = postsnap.getValue(Post.class);
                     postList.add(post);
                 }
+                Collections.reverse(postList);
                 postAdapter = new PostAdapter(getActivity(), postList);
                 postRecyclerView.setAdapter(postAdapter);
             }
@@ -95,7 +90,5 @@ public class HomeFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 }
-
-
 
 

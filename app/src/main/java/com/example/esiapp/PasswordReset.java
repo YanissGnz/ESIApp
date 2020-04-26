@@ -14,11 +14,12 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class PasswordReset extends AppCompatActivity {
 
-    EditText email ;
+    TextInputLayout email ;
     Button confirmButton;
     FirebaseAuth fAuth;
     ProgressBar progressBar;
@@ -26,7 +27,6 @@ public class PasswordReset extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_password_reset);
         setContentView(R.layout.activity_password_reset);
         setViews();
         confirmButton.setOnClickListener(new View.OnClickListener() {
@@ -36,7 +36,7 @@ public class PasswordReset extends AppCompatActivity {
                 if (validate()) {
                     confirmButton.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
-                    String Resetemail = email.getText().toString();
+                    String Resetemail = email.getEditText().getText().toString().trim();
                     fAuth.sendPasswordResetEmail(Resetemail).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -57,8 +57,8 @@ public class PasswordReset extends AppCompatActivity {
 
     public void setViews ()
     {
-        email =findViewById(R.id.email);
-        confirmButton = findViewById(R.id.confirm1);
+        email =findViewById(R.id.password_reset_email);
+        confirmButton = findViewById(R.id.reset_password_confirm);
         fAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.reset_password_progressBar);
         progressBar.setVisibility(View.INVISIBLE);
@@ -67,19 +67,25 @@ public class PasswordReset extends AppCompatActivity {
     public boolean validate()
     {
         boolean result ;
-        String semail = email.getText().toString();
+        String semail = email.getEditText().getText().toString();
         if (TextUtils.isEmpty(semail))
         {
-            PasswordReset.this.email.setError("email is required email is not found");
+            PasswordReset.this.email.setError("Please enter your email");
             result=false ;
         }
         else if (!semail.contains("esi-sba.dz")) {
-            PasswordReset.this.email.setError("you are not an esi sba student");
+            PasswordReset.this.email.setError("You are not an esi sba student");
             result = false;
         }
         else result=true ;
 
         return result ;
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
     }
 }
 
