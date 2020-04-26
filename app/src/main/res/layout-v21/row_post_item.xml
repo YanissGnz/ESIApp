@@ -108,7 +108,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/male"
-            tools:ignore="VectorDrawableCompat"/>
+            tools:ignore="VectorDrawableCompat"
+            android:transitionName="post_pic"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
