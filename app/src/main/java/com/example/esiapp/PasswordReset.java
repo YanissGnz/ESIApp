@@ -48,6 +48,8 @@ public class PasswordReset extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Toast.makeText(PasswordReset.this, "Error!! Reset link is not sent"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            confirmButton.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.INVISIBLE);
                         }
                     });
                 }

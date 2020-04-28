@@ -8,7 +8,7 @@
     android:background="@color/background">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+        android:id="@+id/cardView_post"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
@@ -33,13 +33,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
         android:fontFamily="@font/bold"
         android:text="Person's Name"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/cardView_post"
+        app:layout_constraintTop_toTopOf="@+id/cardView_post" />
 
     <TextView
         android:id="@+id/post_date"
@@ -50,7 +49,7 @@
         android:layout_marginTop="4dp"
         android:text="Added Date"
         android:textSize="11sp"
-        app:layout_constraintStart_toEndOf="@+id/cardView"
+        app:layout_constraintStart_toEndOf="@+id/cardView_post"
         app:layout_constraintTop_toBottomOf="@+id/person_name" />
 
     <TextView
@@ -68,7 +67,7 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView_post" />
 
     <TextView
         android:id="@+id/post_description"
@@ -101,7 +100,7 @@
             android:id="@+id/post_picture"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:elevation="1dp"
+            android:elevation="3dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

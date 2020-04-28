@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">test</string>
+    <string name="app_name">Esi Plus</string>
     <string name="home">Home</string>
     <string name="courses">Courses</string>
     <string name="planner">Planner</string>
@@ -62,4 +62,6 @@
     <string name="full_name">Full Name</string>
     <string name="verify_password">Verify Password</string>
     <string name="enter_your_email">Enter Your Email</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="esi_plus">Esi Plus</string>
 </resources>
