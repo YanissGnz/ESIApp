@@ -133,7 +133,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
         Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
         calendar.setTimeInMillis(time);
-        return DateFormat.format("MMM dd yyyy à HH:mm ",calendar).toString();
+        return DateFormat.format("dd MMMM yyyy à HH:mm ",calendar).toString();
     }
 
 

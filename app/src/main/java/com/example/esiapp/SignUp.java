@@ -58,8 +58,8 @@ public class SignUp extends AppCompatActivity {
                                         if (task.isSuccessful()) {
                                             sendEmailVerification();
                                             if(UserEmailVerification) {
-                                                Toast.makeText(SignUp.this, "user created ", Toast.LENGTH_SHORT).show();
-                                                startActivity(new Intent(getApplicationContext(), (Home.class)));
+                                                startActivity(new Intent(SignUp.this, Home.class));
+                                                Toast.makeText(SignUp.this, "Welcome", Toast.LENGTH_SHORT).show();
                                                 FirebaseDatabase.getInstance().getReference().child("UserNames").push().child("Name").setValue(username);
                                                 finish();
                                             }
@@ -67,6 +67,8 @@ public class SignUp extends AppCompatActivity {
                                             // If sign in fails, display a message to the user.
                                             Toast.makeText(SignUp.this, "Authentication failed.",
                                                     Toast.LENGTH_SHORT).show();
+                                            signUp.setVisibility(View.VISIBLE);
+                                            progressBar.setVisibility(View.INVISIBLE);
                                         }
                                     }
                                 });
@@ -116,7 +118,7 @@ public class SignUp extends AppCompatActivity {
                             Toast.makeText(SignUp.this, "Verification email sent", Toast.LENGTH_SHORT).show();
                         }
                         else {
-                            Toast.makeText(SignUp.this, " Failed to sent Verification ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUp.this, "Failed to sent Verification", Toast.LENGTH_SHORT).show();
                         }
                     }
 
