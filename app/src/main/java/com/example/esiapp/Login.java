@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,12 +23,16 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class Login extends AppCompatActivity {
 
+    private static final String SHARED_PREFS = "sharedPrefs";
+    private static final String LOGIN = "LOGIN";
+    boolean tvLOGIN;
+    private boolean LogedIn;
     Button login;
     TextView signUp, forgetPassword;
     TextInputLayout Email,Password;
     private FirebaseAuth fAuth;
     ProgressBar progressBar;
-    ConstraintLayout constraintLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,35 +50,52 @@ public class Login extends AppCompatActivity {
         progressBar.setVisibility(View.INVISIBLE);
 
         //____________________________________Login Button______________________________________
-        login.setOnClickListener(new View.OnClickListener() {
+        loadData();
+        if (LogedIn){
+            Intent intent = new Intent(Login.this, Home.class);
+            startActivity(intent);
+            finish();
+        } else login.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 String sEmail = Email.getEditText().getText().toString().trim();
                 String sPassword = Password.getEditText().getText().toString().trim();
-                if (validate()) {
+                if (validate())
+
+                {
                     login.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
                     fAuth.signInWithEmailAndPassword(sEmail,sPassword)
-                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                            @Override
-                            public void onSuccess(AuthResult authResult) {
-                                startActivity(new Intent(Login.this, Home.class));
-                                finish();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                login.setVisibility(View.VISIBLE);
-                                progressBar.setVisibility(View.INVISIBLE);
-                                Toast.makeText(Login.this, "Email or Password incorrect or verify your network connection ", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                            .addOnSuccessListener(new OnSuccessListener<AuthResult>()
+                            {
+                                @Override
+                                public void onSuccess(AuthResult authResult)
+                                {
+                                    tvLOGIN = true;
+                                    saveData();
+                                    Intent intent = new Intent(Login.this, Home.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+
+                            }).addOnFailureListener(new OnFailureListener()
+                    {
+                        @Override
+                        public void onFailure(@NonNull Exception e)
+                        {
+                            login.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.INVISIBLE);
+                            Toast.makeText(Login.this, "Email or Password incorrect or verify your network connection ", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             }
         });
 
         //____________________________________Password reset____________________________________
-        forgetPassword.setOnClickListener(new View.OnClickListener() {
+        forgetPassword.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), PasswordReset.class);
@@ -116,4 +138,15 @@ public class Login extends AppCompatActivity {
         return result;
     }
 
+    public void saveData(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putBoolean(LOGIN, tvLOGIN);
+        editor.apply();
+    }
+    public void loadData(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        LogedIn = sharedPreferences.getBoolean(LOGIN, false);
+    }
 }

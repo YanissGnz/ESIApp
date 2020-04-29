@@ -51,6 +51,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:maxHeight="600dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
                 android:elevation="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -123,7 +126,6 @@
                 android:layout_marginLeft="16dp"
                 android:background="@color/background"
                 app:cardCornerRadius="64dp"
-                android:elevation="0dp"
                 app:layout_constraintBottom_toBottomOf="@+id/post_detail_comment_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/post_detail_comment_text">

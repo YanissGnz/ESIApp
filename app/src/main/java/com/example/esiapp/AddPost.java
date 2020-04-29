@@ -3,6 +3,8 @@ package com.example.esiapp;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -33,6 +35,7 @@ public class AddPost extends AppCompatActivity {
     private TextView postButton;
     private EditText subject, description;
     private ProgressBar progressbar;
+    ConstraintLayout addPhoto;
     private static final int REQUESCODE = 2;
     private Uri pickedImgUri=null;
     FirebaseAuth mAuth;
@@ -107,12 +110,11 @@ public class AddPost extends AppCompatActivity {
             }
 
         });
-        postImage.setOnClickListener(new View.OnClickListener() {
+        addPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                // checkAndRequestForPermission();
                 openGallery();
-                postImage.setPadding(0,0,0,0);
             }
         });
     }
@@ -125,13 +127,14 @@ public class AddPost extends AppCompatActivity {
     // elle permet de definir les vues de l'activity
     public void setView() {
         exit = findViewById(R.id.addpost_exit);
-        postImage = findViewById(R.id.post_photo_container);
+        postImage = findViewById(R.id.addpost_photo_container);
         postButton = findViewById(R.id.post_button);
         subject = findViewById(R.id.subject);
         description = findViewById(R.id.descreption);
         description.setMaxHeight(500);
         progressbar = findViewById(R.id.add_post_progressBar);
         progressbar.setVisibility(View.INVISIBLE);
+        addPhoto = findViewById(R.id.add_photo);
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
     }

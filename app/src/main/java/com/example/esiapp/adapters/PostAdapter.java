@@ -20,6 +20,7 @@ import com.example.esiapp.R;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -65,6 +66,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         TextView tvDescription;
          TextView time;
          TextView userName;
+         ConstraintLayout imgContainer;
 
         @RequiresApi(api = Build.VERSION_CODES.N)
         MyViewHolder(View itemView)
@@ -75,9 +77,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             tvDescription=itemView.findViewById(R.id.post_description);
             imgPost = itemView.findViewById(R.id.post_picture);
             imgPostProfile = itemView.findViewById(R.id.post_profile_picture);
-            imgPost.setMaxHeight(400);
             time = itemView.findViewById(R.id.post_date);
             userName= itemView.findViewById(R.id.person_name);
+            imgContainer = itemView.findViewById(R.id.post_photo_container);
 
             imgPost.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
-import com.example.esiapp.AddPost;
 import com.example.esiapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -115,7 +114,6 @@ public class PostDetail extends AppCompatActivity
     //********************************* Les methodes ****************************************************************
     public void SetViews() {
         postPicture = findViewById(R.id.post_detail_picture);
-        postPicture.setMaxHeight(500);
         Subject = findViewById(R.id.post_detail_subject);
         description = findViewById(R.id.post_detail_descreption);
         UserName = findViewById(R.id.post_detail_pesron);
@@ -131,7 +129,7 @@ public class PostDetail extends AppCompatActivity
         //AddComment.setVisibility(View.INVISIBLE);
 
         CommentEditText = findViewById(R.id.post_detail_comment_text);
-        //CommentEditText.setMaxHeight(0);
+        CommentEditText.setMaxHeight(300);
        //CommentEditText.setVisibility(View.INVISIBLE);
 
         cardView = findViewById(R.id.cardView_post);

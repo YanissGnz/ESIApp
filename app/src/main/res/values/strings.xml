@@ -64,4 +64,6 @@
     <string name="enter_your_email">Enter Your Email</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="esi_plus">Esi Plus</string>
+    <string name="add_photo">Add Photo</string>
+    <string name="like">Like</string>
 </resources>
