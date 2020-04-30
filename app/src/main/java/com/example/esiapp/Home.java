@@ -76,19 +76,17 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             case R.id.home:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new HomeFragment()).commit();
-
-                break;
-            case R.id.settings:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new SettingsFragment()).commit();
+                addPost.setVisibility(View.VISIBLE);
                 break;
             case R.id.planner:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new PlannerFragment()).commit();
+                addPost.setVisibility(View.INVISIBLE);
                 break;
             case R.id.profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ProfileFragment()).commit();
+                addPost.setVisibility(View.INVISIBLE);
                 break;
             case R.id.nav_logout:
                 Toast.makeText(this,"Logout",Toast.LENGTH_SHORT).show();
@@ -96,6 +94,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             case R.id.courses:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new CoursesFragment()).commit();
+                addPost.setVisibility(View.INVISIBLE);
                 break;
             case R.id.nav_feedback:
                 Toast.makeText(this,"feedback",Toast.LENGTH_SHORT).show();
@@ -105,9 +104,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 intent.setType("application/vnd/.android.package-archive");
                 intent.putExtra(Intent.EXTRA_STREAM, "my new app");
                 startActivity(Intent.createChooser(intent,"ShareVia"));
-
                 break;
-
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

@@ -73,8 +73,8 @@ public class AddPost extends AppCompatActivity {
                                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                                     myRef =database.getReference("Posts").push();
                                     Post post=new Post (Title,Description,imageLink,currentUser.getUid(),currentUser.getEmail());
-                                  String key = myRef.getKey();
-                                   post.setPostKey(key);
+                                    String key = myRef.getKey();
+                                    post.setPostKey(key);
                                     myRef.setValue(post).addOnSuccessListener(new OnSuccessListener<Void>()
                                     {
                                         @Override
@@ -129,6 +129,7 @@ public class AddPost extends AppCompatActivity {
         postButton = findViewById(R.id.post_button);
         subject = findViewById(R.id.subject);
         description = findViewById(R.id.descreption);
+        description.setMaxHeight(500);
         progressbar = findViewById(R.id.add_post_progressBar);
         progressbar.setVisibility(View.INVISIBLE);
         mAuth = FirebaseAuth.getInstance();

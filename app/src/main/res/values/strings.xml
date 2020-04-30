@@ -20,8 +20,8 @@
         <item>3CS</item>
     </string-array>
 
-    <string-array name="groupe">
-        <item>Groupe</item>
+    <string-array name="group">
+        <item>Group</item>
         <item>01</item>
         <item>02</item>
         <item>03</item>
@@ -50,4 +50,16 @@
     <string name="create_post">Create Post</string>
     <string name="post">Post</string>
     <string name="optional">(Optional)</string>
+    <string name="account">Account</string>
+    <string name="information">Information</string>
+    <string name="off">Off</string>
+    <string name="on">On</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="forget_password">Forget Password ?</string>
+    <string name="don_t_have_an_account">Don\'t have an account ?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="full_name">Full Name</string>
+    <string name="verify_password">Verify Password</string>
+    <string name="enter_your_email">Enter Your Email</string>
 </resources>
