@@ -14,7 +14,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
-        android:background="@color/background"
+        android:background="@android:color/transparent"
         app:cardCornerRadius="64dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -48,7 +48,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="4dp"
         android:text="Added Date"
-        android:textSize="11sp"
+        android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/cardView_post"
         app:layout_constraintTop_toBottomOf="@+id/person_name" />
 
@@ -98,16 +98,17 @@
 
         <ImageView
             android:id="@+id/post_picture"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="3dp"
+            android:maxHeight="600dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/male"
-            tools:ignore="VectorDrawableCompat"/>
+            tools:ignore="VectorDrawableCompat" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
@@ -166,7 +167,7 @@
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
             android:fontFamily="@font/bold"
-            android:text="Like"
+            android:text="@string/like"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"

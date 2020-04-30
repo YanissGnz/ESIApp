@@ -33,10 +33,10 @@
         android:ems="10"
         android:hint="@string/descreption"
         android:inputType="textMultiLine"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:paddingRight="16dp"
         android:paddingLeft="16dp"
+        android:paddingTop="10dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,18 +56,16 @@
 
 
     <ImageView
-        android:id="@+id/post_photo_container"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:id="@+id/addpost_photo_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:layout_marginBottom="32dp"
-        android:padding="160dp"
-        android:scaleType="fitStart"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:adjustViewBounds="true"
+        android:maxHeight="400dp"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descreption"
-        app:srcCompat="@drawable/add_image" />
+        app:layout_constraintTop_toBottomOf="@+id/descreption" />
 
     <TextView
         android:id="@+id/textView10"
@@ -105,5 +103,39 @@
         app:layout_constraintEnd_toEndOf="@+id/post_button"
         app:layout_constraintStart_toStartOf="@+id/post_button"
         app:layout_constraintTop_toTopOf="@+id/post_button" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/add_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/add_image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.35"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:fontFamily="@font/bold"
+            android:text="@string/add_photo"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
