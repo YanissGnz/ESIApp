@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
 
@@ -44,21 +45,29 @@ public class Login extends AppCompatActivity {
         progressBar = findViewById(R.id.login_progressBar);
         progressBar.setVisibility(View.INVISIBLE);
 
+
         //____________________________________Login Button______________________________________
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String sEmail = Email.getEditText().getText().toString().trim();
                 String sPassword = Password.getEditText().getText().toString().trim();
-                if (validate()) {
+                if (validate()  ) {
                     login.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
                     fAuth.signInWithEmailAndPassword(sEmail,sPassword)
                         .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                             @Override
                             public void onSuccess(AuthResult authResult) {
-                                startActivity(new Intent(Login.this, Home.class));
-                                finish();
+                                if (fAuth.getCurrentUser().isEmailVerified()) {
+                                    Toast.makeText(Login.this, "signInWithEmail:success  ", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(Login.this, Home.class));
+                                    finish();
+                                }else{
+                                    Toast.makeText(Login.this, "verification!!  ", Toast.LENGTH_SHORT).show();
+
+
+                                }
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override

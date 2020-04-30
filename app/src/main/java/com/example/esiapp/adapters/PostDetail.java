@@ -104,7 +104,7 @@ public class PostDetail extends AppCompatActivity
             }
         });
 
-       back.setOnClickListener(new View.OnClickListener() {
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -132,7 +132,7 @@ public class PostDetail extends AppCompatActivity
 
         CommentEditText = findViewById(R.id.post_detail_comment_text);
         //CommentEditText.setMaxHeight(0);
-       //CommentEditText.setVisibility(View.INVISIBLE);
+        //CommentEditText.setVisibility(View.INVISIBLE);
 
         cardView = findViewById(R.id.cardView_post);
 
