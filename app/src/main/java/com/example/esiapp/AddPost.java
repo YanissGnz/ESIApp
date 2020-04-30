@@ -75,7 +75,7 @@ public class AddPost extends AppCompatActivity {
                                     String imageLink = uri.toString();
                                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                                     myRef =database.getReference("Posts").push();
-                                    Post post=new Post (Title,Description,imageLink,currentUser.getUid(),currentUser.getEmail());
+                                    Post post=new Post (Title,Description,imageLink,currentUser.getUid(),currentUser.getDisplayName());
                                     String key = myRef.getKey();
                                     post.setPostKey(key);
                                     myRef.setValue(post).addOnSuccessListener(new OnSuccessListener<Void>()

@@ -90,6 +90,9 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 break;
             case R.id.nav_logout:
                 Toast.makeText(this,"Logout",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Home.this, Login.class));
+                finish();
+
                 break;
             case R.id.courses:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,

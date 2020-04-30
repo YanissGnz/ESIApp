@@ -4,7 +4,7 @@ package com.example.esiapp.adapters;
 import com.google.firebase.database.ServerValue;
 
 public class Post {
-    public String getUserName() {
+    String getUserName() {
         return UserName;
     }
 
@@ -12,8 +12,11 @@ public class Post {
         UserName = userName;
     }
 
+
+
     private String postKey;
     private String title;
+   // private String pLikes;
     private String description;
     private String picture;
     private String userId;
@@ -27,6 +30,8 @@ public class Post {
         this.timeStamp = ServerValue.TIMESTAMP;
         this.UserName=Uname;
     }
+
+
     Object getimeStamp() {
         return timeStamp;
     }
@@ -55,19 +60,19 @@ public class Post {
     }
 
 
-    public String getPostKey() {
+    String getPostKey() {
         return postKey;
     }
 
-    public String getTitle() {
+    String getTitle() {
         return title;
     }
 
-    public String getDescription() {
+    String getDescription() {
         return description;
     }
 
-    public String getPicture() {
+    String getPicture() {
         return picture;
     }
 
@@ -75,7 +80,7 @@ public class Post {
         return userId;
     }
 
-    public Object getTimeStamp() {
+    Object getTimeStamp() {
         return timeStamp;
     }
 
