@@ -1,12 +1,5 @@
 package com.example.esiapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,12 +8,20 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.example.esiapp.fragment.CoursesFragment;
 import com.example.esiapp.fragment.HomeFragment;
 import com.example.esiapp.fragment.PlannerFragment;
 import com.example.esiapp.fragment.ProfileFragment;
 import com.example.esiapp.fragment.SettingsFragment;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -76,38 +77,38 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             case R.id.home:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new HomeFragment()).commit();
-                addPost.setVisibility(View.VISIBLE);
                 break;
             case R.id.planner:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new PlannerFragment()).commit();
-                addPost.setVisibility(View.INVISIBLE);
                 break;
             case R.id.profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ProfileFragment()).commit();
-                addPost.setVisibility(View.INVISIBLE);
                 break;
             case R.id.nav_logout:
-                Toast.makeText(this,"Logout",Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(Home.this, Login.class));
+               // Login.logedIn = false;
+                FirebaseAuth.getInstance().signOut();
+                Intent loginAcivity = new Intent(getApplicationContext(), Login.class);
+                startActivity(loginAcivity);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.none);
                 finish();
-
                 break;
             case R.id.courses:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new CoursesFragment()).commit();
-                addPost.setVisibility(View.INVISIBLE);
                 break;
             case R.id.nav_feedback:
                 Toast.makeText(this,"feedback",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_share:
-                Intent intent=new Intent(Intent.ACTION_SEND);
+                Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("application/vnd/.android.package-archive");
                 intent.putExtra(Intent.EXTRA_STREAM, "my new app");
                 startActivity(Intent.createChooser(intent,"ShareVia"));
+
                 break;
+
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

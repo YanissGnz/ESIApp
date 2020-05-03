@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".Home"
     android:background="#f1f3f6"
-    tools:openDrawer="start">
+    tools:openDrawer="">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             android:layout_marginRight="24dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/button"
-            android:elevation="10dp"
+            android:elevation="5dp"
             android:padding="18dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/fragment_container"
@@ -34,6 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
+            android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

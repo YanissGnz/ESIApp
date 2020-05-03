@@ -5,21 +5,6 @@
     <string name="planner">Planner</string>
     <string name="profile">Profile</string>
 
-    <string-array name="gender">
-        <item>Gender</item>
-        <item>Male</item>
-        <item>Female</item>
-    </string-array>
-
-    <string-array name="grade">
-        <item>Grade</item>
-        <item>1CP</item>
-        <item>2CP</item>
-        <item>1CS</item>
-        <item>2CS</item>
-        <item>3CS</item>
-    </string-array>
-
     <string-array name="groupe">
         <item>Groupe</item>
         <item>01</item>
@@ -67,4 +52,25 @@
     <string name="person">person</string>
     <string name="added_date">Added Date</string>
     <string name="lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry_lorem_ipsum_has_been_the_industry_s_standard_dummy_text_ever_since_the_1500s_when_an_unknown_printer_took_a_galley_of_type_and_scrambled_it_to_make_a_type_specimen_book_it_has_survived_not_only_five_centuries">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</string>
+    <string name="add_photo">Add Photo</string>
+    <string name="like">Like</string>
+    <string name="add_a_photo">Add  Photo</string>
+    <string name="by">By</string>
+    <string name="person_s_name">Person\'s Name</string>
+
+    <string-array name="gender">
+        <item>Gender</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string-array name="grade">
+        <item>Grade</item>
+        <item>1CP</item>
+        <item>2CP</item>
+        <item>1CS</item>
+        <item>2CS</item>
+        <item>3CS</item>
+    </string-array>
+
 </resources>

@@ -1,10 +1,5 @@
 package com.example.esiapp;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -16,6 +11,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.esiapp.adapters.Post;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -34,8 +34,8 @@ public class AddPost extends AppCompatActivity {
     private ImageView exit, postImage;
     private TextView postButton;
     private EditText subject, description;
-    private ProgressBar progressbar;
     ConstraintLayout addPhoto;
+    private ProgressBar progressbar;
     private static final int REQUESCODE = 2;
     private Uri pickedImgUri=null;
     FirebaseAuth mAuth;
@@ -75,9 +75,9 @@ public class AddPost extends AppCompatActivity {
                                     String imageLink = uri.toString();
                                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                                     myRef =database.getReference("Posts").push();
-                                    Post post=new Post (Title,Description,imageLink,currentUser.getUid(),currentUser.getDisplayName());
-                                    String key = myRef.getKey();
-                                    post.setPostKey(key);
+                                    Post post=new Post(Title,Description,imageLink,currentUser.getUid(),currentUser.getDisplayName());
+                                  String key = myRef.getKey();
+                                   post.setPostKey(key);
                                     myRef.setValue(post).addOnSuccessListener(new OnSuccessListener<Void>()
                                     {
                                         @Override
@@ -110,10 +110,10 @@ public class AddPost extends AppCompatActivity {
             }
 
         });
+
         addPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // checkAndRequestForPermission();
                 openGallery();
             }
         });
@@ -127,14 +127,14 @@ public class AddPost extends AppCompatActivity {
     // elle permet de definir les vues de l'activity
     public void setView() {
         exit = findViewById(R.id.addpost_exit);
-        postImage = findViewById(R.id.addpost_photo_container);
+        postImage = findViewById(R.id.post_photo_container);
         postButton = findViewById(R.id.post_button);
         subject = findViewById(R.id.subject);
         description = findViewById(R.id.descreption);
         description.setMaxHeight(500);
+        addPhoto = findViewById(R.id.add_photo);
         progressbar = findViewById(R.id.add_post_progressBar);
         progressbar.setVisibility(View.INVISIBLE);
-        addPhoto = findViewById(R.id.add_photo);
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
     }
@@ -154,25 +154,6 @@ public class AddPost extends AppCompatActivity {
         galleryIntent.setType("image/*");
         startActivityForResult(galleryIntent, REQUESCODE);
     }
-   /* public void checkAndRequestForPermission() {
-
-        if (ContextCompat.checkSelfPermission(AddPost.this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(AddPost.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-
-                Toast.makeText(AddPost.this, "Please accept for required permission", Toast.LENGTH_SHORT).show();
-
-            } else {
-                ActivityCompat.requestPermissions(AddPost.this,
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        PReqCode);
-            }
-        } else
-            openGallery();
-
-    }
-
-    */
 
     public void showMessage(String message) {
         Toast.makeText(AddPost.this, message, Toast.LENGTH_LONG).show();

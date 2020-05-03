@@ -40,9 +40,8 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/bold"
                 android:text="@string/post"
-
                 android:textColor="@color/black"
-                android:textSize="25sp"
+                android:textSize="28sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -52,10 +51,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:maxHeight="600dp"
+                android:maxHeight="700dp"
                 android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:elevation="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -71,6 +68,9 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/bold"
                 android:text="@string/subject"
+                android:clickable="true"
+                android:focusable="true"
+                android:textIsSelectable="true"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -87,6 +87,8 @@
                 android:longClickable="true"
                 android:layout_marginRight="16dp"
                 android:fontFamily="@font/regular"
+                android:clickable="true"
+                android:focusable="true"
                 android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries"
                 android:textColor="@color/black"
                 android:textSize="14sp"
@@ -109,7 +111,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/post_detail_descreption" />
 
             <TextView
-                android:id="@+id/post_detail_pesron"
+                android:id="@+id/post_detail_pesron_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
@@ -119,38 +121,31 @@
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView7"
                 app:layout_constraintStart_toEndOf="@+id/textView7"
-                app:layout_constraintTop_toTopOf="@+id/textView7" />
+                app:layout_constraintTop_toTopOf="@+id/textView7"
+                app:layout_constraintVertical_bias="0.0" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_post"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/post_detail_profile_picture"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:background="@color/background"
-                app:cardCornerRadius="64dp"
+                android:src="@drawable/male"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="@+id/post_detail_comment_text"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/post_detail_comment_text">
-
-                <ImageView
-                    android:id="@+id/post_detail_profile_picture"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/male" />
-            </androidx.cardview.widget.CardView>
+                app:layout_constraintTop_toTopOf="@+id/post_detail_comment_text" />
 
             <EditText
                 android:id="@+id/post_detail_comment_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="12dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:background="@drawable/comment_bg"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/edittext_background"
                 android:ems="10"
                 android:fontFamily="@font/regular"
                 android:hint="@string/add_comment"
@@ -160,7 +155,7 @@
                 android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@+id/add_comment"
                 app:layout_constraintHorizontal_bias="0.062"
-                app:layout_constraintStart_toEndOf="@+id/cardView_post"
+                app:layout_constraintStart_toEndOf="@+id/comment_profile_picture"
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
 
             <Button
@@ -193,7 +188,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/post_detail_comment_text" />
+                app:layout_constraintTop_toBottomOf="@+id/post_detail_comment_text"
+                app:layout_constraintVertical_bias="0.0" />
 
             <View
                 android:id="@+id/view"
@@ -208,7 +204,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/post_detail_pesron" />
+                app:layout_constraintTop_toBottomOf="@+id/post_detail_pesron_name" />
 
             <View
                 android:id="@+id/view5"
@@ -254,7 +250,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginLeft="4dp"
                 android:fontFamily="@font/regular"
-                android:text="By"
+                android:text="@string/by"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/post_detail_date"
                 app:layout_constraintStart_toEndOf="@+id/post_detail_date"

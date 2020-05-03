@@ -1,18 +1,17 @@
 package com.example.esiapp;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,7 +20,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
@@ -119,7 +117,7 @@ public class SignUp extends AppCompatActivity {
         return result;
     }
 
-    public void sendEmailVerification() {
+   /* public void sendEmailVerification() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         final FirebaseUser user = auth.getCurrentUser();
 
@@ -137,7 +135,7 @@ public class SignUp extends AppCompatActivity {
                     }
 
                 });
-    }
+    }*/
 
     @Override
     public void finish() {
@@ -166,12 +164,10 @@ public class SignUp extends AppCompatActivity {
 
     private void updateUI() {
 
-        Intent Login = new Intent(getApplicationContext(), Login.class);
+        Intent Login = new Intent(getApplicationContext(), com.example.esiapp.Login.class);
         startActivity(Login);
         finish();
 
 
     }
 }
-
-

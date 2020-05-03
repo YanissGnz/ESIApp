@@ -1,4 +1,16 @@
 package com.example.esiapp.adapters;
+
+import android.os.Build;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.text.format.DateFormat;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,17 +19,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Build;
-import android.os.Bundle;
-import android.text.format.DateFormat;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 import com.bumptech.glide.Glide;
-import com.example.esiapp.AddPost;
 import com.example.esiapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,6 +30,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -68,15 +71,13 @@ public class PostDetail extends AppCompatActivity
         String postDescription = getIntent().getExtras().getString("description");
         description.setText(postDescription);
         //pour la date
-        String postusername = getIntent().getExtras().getString("UserName");
+        String postusername = getIntent().getExtras().getString("userName");
         UserName.setText(postusername);
         String date = timestampToString(getIntent().getExtras().getLong("postDate"));
         PostDate.setText(date);
         // get post id
         PostKey = getIntent().getExtras().getString("postKey");
-        /* pour la photo de l'utilisateur (khelina menha)
-        String userpostImage = getIntent().getExtras().getString("userPhoto");
-        Glide.with(this).load(userpostImage).into(imgUserPost);*/
+     //   Glide.with(this).load(userpostImage).into(imgUserPost);
         AddComment.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
@@ -84,23 +85,31 @@ public class PostDetail extends AppCompatActivity
                 //   Add_comment.setVisibility(View.INVISIBLE);
                 String comment_content = CommentEditText.getText().toString().trim();
                 String uid = firebaseUser.getUid();
-                String uname = firebaseUser.getEmail();
+                FirebaseAuth mAuth;
+                mAuth = FirebaseAuth.getInstance();
+                FirebaseUser currentUser ;
+                currentUser = mAuth.getCurrentUser();
+                String uname = currentUser.getDisplayName();
                 DatabaseReference commentReference = firebaseDatabase.getReference(COMMENT_KEY).child(PostKey).push();
                 // String uimg = Objects.requireNonNull(firebaseUser.getPhotoUrl()).toString();
                 Comment comment = new Comment(comment_content, uid, uname);
-                commentReference.setValue(comment).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        showMessage("Comment added");
-                        CommentEditText.setText("");
-                        AddComment.setVisibility(View.VISIBLE);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        showMessage("Fail to add comment : " + e.getMessage());
-                    }
-                });
+                if (TextUtils.isEmpty(comment_content))
+                    PostDetail.this.CommentEditText.setError("Please write a comment");
+                else {
+                    commentReference.setValue(comment).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            showMessage("Comment added");
+                            CommentEditText.setText("");
+                            AddComment.setVisibility(View.VISIBLE);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            showMessage("Fail to add comment : " + e.getMessage());
+                        }
+                    });
+                }
             }
         });
 
@@ -115,27 +124,14 @@ public class PostDetail extends AppCompatActivity
     //********************************* Les methodes ****************************************************************
     public void SetViews() {
         postPicture = findViewById(R.id.post_detail_picture);
-        postPicture.setMaxHeight(500);
         Subject = findViewById(R.id.post_detail_subject);
         description = findViewById(R.id.post_detail_descreption);
-        UserName = findViewById(R.id.post_detail_pesron);
+        UserName = findViewById(R.id.post_detail_pesron_name);
         PostDate = findViewById(R.id.post_detail_date);
         CommentText = findViewById(R.id.comment_content);
-
         userPicture = findViewById(R.id.post_detail_profile_picture);
-        userPicture.setMaxHeight(0);
-        //userPicture.setVisibility(View.INVISIBLE);
-
         AddComment = findViewById(R.id.add_comment);
-        //AddComment.setMaxHeight(0);
-        //AddComment.setVisibility(View.INVISIBLE);
-
         CommentEditText = findViewById(R.id.post_detail_comment_text);
-        //CommentEditText.setMaxHeight(0);
-        //CommentEditText.setVisibility(View.INVISIBLE);
-
-        cardView = findViewById(R.id.cardView_post);
-
         CommentList = findViewById(R.id.rv_comment);
         back = findViewById(R.id.post_detail_back);
         comment = findViewById(R.id.comment_btn);

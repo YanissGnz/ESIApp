@@ -1,30 +1,31 @@
 package com.example.esiapp.fragment;
+
+
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-
-import com.example.esiapp.adapters.Post;
-import com.example.esiapp.adapters.PostAdapter;
-import com.example.esiapp.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.esiapp.R;
+import com.example.esiapp.adapters.Post;
+import com.example.esiapp.adapters.PostAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
+
 public class HomeFragment extends Fragment {
     private RecyclerView postRecyclerView;
     private PostAdapter postAdapter;
@@ -49,6 +50,8 @@ public class HomeFragment extends Fragment {
         databaseReference = firebaseDatabase.getReference("Posts");
         return fragmentView;
     }
+
+
     @Override
     public void onStart() {
         super.onStart();
@@ -62,7 +65,6 @@ public class HomeFragment extends Fragment {
                     Post post = postsnap.getValue(Post.class);
                     postList.add(post);
                 }
-                Collections.reverse(postList);
                 postAdapter = new PostAdapter(getActivity(), postList);
                 postRecyclerView.setAdapter(postAdapter);
             }
@@ -90,5 +92,7 @@ public class HomeFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 }
+
+
 
 
