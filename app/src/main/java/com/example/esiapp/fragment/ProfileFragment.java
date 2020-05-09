@@ -323,7 +323,6 @@ public class ProfileFragment extends Fragment {
         editor.putString("email",semail);
 
         editor.apply();
-
     }
 
     public void loadData()

@@ -19,7 +19,6 @@ import com.example.esiapp.fragment.CoursesFragment;
 import com.example.esiapp.fragment.HomeFragment;
 import com.example.esiapp.fragment.PlannerFragment;
 import com.example.esiapp.fragment.ProfileFragment;
-import com.example.esiapp.fragment.SettingsFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -77,14 +76,18 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             case R.id.home:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new HomeFragment()).commit();
+                addPost.setVisibility(View.VISIBLE);
                 break;
             case R.id.planner:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new PlannerFragment()).commit();
+                addPost.setVisibility(View.INVISIBLE);
                 break;
             case R.id.profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ProfileFragment()).commit();
+                addPost.setVisibility(View.INVISIBLE);
+
                 break;
             case R.id.nav_logout:
                // Login.logedIn = false;
@@ -97,6 +100,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             case R.id.courses:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new CoursesFragment()).commit();
+                addPost.setVisibility(View.INVISIBLE);
                 break;
             case R.id.nav_feedback:
                 Toast.makeText(this,"feedback",Toast.LENGTH_SHORT).show();

@@ -73,4 +73,13 @@
         <item>3CS</item>
     </string-array>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_more_does">No More Does</string>
+    <string name="my_does">My Does</string>
+    <string name="to_do_list">To Do List</string>
+    <string name="lorem_ipsum_is_simply_dummy_text_of_the_printing">lorem ipsum is simply dummy text of the printing</string>
+    <string name="add_a_task">Add a Task</string>
+    <string name="add_a_time">Add a Time</string>
+
 </resources>

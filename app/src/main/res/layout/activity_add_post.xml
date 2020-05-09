@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
+
     <EditText
         android:id="@+id/subject"
         android:layout_width="0dp"
