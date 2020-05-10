@@ -1,6 +1,9 @@
 package com.example.esiapp;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,7 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawer;
-    ImageView addPost;
+    ImageView addPost, addDoes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,17 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 Intent intent = new Intent(getApplicationContext(), AddPost.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_up, R.anim.none);
+            }
+        });
+
+        addDoes = findViewById(R.id.add_do);
+        addDoes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog dialog = new Dialog(Home.this);
+                dialog.setContentView(R.layout.activity_add_to_do);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
             }
         });
 
@@ -82,6 +96,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new PlannerFragment()).commit();
                 addPost.setVisibility(View.INVISIBLE);
+                addDoes.setVisibility(View.VISIBLE);
                 break;
             case R.id.profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
