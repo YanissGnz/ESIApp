@@ -20,7 +20,7 @@ public class PlannerFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View fragmentView = inflater.inflate(R.layout.fragment_planner, container, false);
+        View fragmentView = inflater.inflate(R.layout.fragment_to_do, container, false);
         return fragmentView;
     }
 }
