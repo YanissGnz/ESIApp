@@ -57,26 +57,27 @@
                     android:background="@drawable/edit_bg"
                     android:elevation="3dp"
                     android:padding="6dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/cardView"
-                    app:layout_constraintEnd_toEndOf="@+id/cardView"
+                    app:layout_constraintBottom_toBottomOf="@+id/cardView_post"
+                    app:layout_constraintEnd_toEndOf="@+id/cardView_post"
                     app:srcCompat="@drawable/camera" />
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardView"
+                    android:id="@+id/cardView_post"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginBottom="24dp"
-                    android:background="@color/background"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@android:color/transparent"
                     app:cardCornerRadius="64dp"
+                    android:elevation="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
-                        android:id="@+id/post_profile_picture"
+                        android:id="@+id/profile_picture"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
@@ -89,16 +90,27 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginLeft="16dp"
-                    android:layout_marginTop="32dp"
                     android:background="#fff"
                     android:fontFamily="@font/bold"
                     android:padding="5dp"
                     android:text="Yaniss Guendouzi"
                     android:textColor="#000000"
                     android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/cardView"
-                    app:layout_constraintStart_toEndOf="@+id/cardView"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintBottom_toBottomOf="@+id/cardView_post"
+                    app:layout_constraintStart_toEndOf="@+id/cardView_post"
+                    app:layout_constraintTop_toTopOf="@+id/cardView_post" />
+
+                <ImageView
+                    android:id="@+id/saveimage"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/save"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="MissingConstraints" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -221,6 +233,18 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/edit" />
 
+                <ImageView
+                    android:id="@+id/saveinfodata"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/save"
+                    app:layout_constraintBottom_toBottomOf="@+id/edit_information"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_information"
+                    app:layout_constraintHorizontal_bias="0.407"
+                    app:layout_constraintStart_toStartOf="@+id/edit_information"
+                    app:layout_constraintTop_toTopOf="@+id/edit_information"
+                    app:layout_constraintVertical_bias="0.284" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -252,8 +276,8 @@
 
                 <ImageView
                     android:id="@+id/imageView12"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="33dp"
+                    android:layout_height="33dp"
                     android:layout_marginStart="40dp"
                     android:layout_marginLeft="40dp"
                     android:layout_marginTop="16dp"
@@ -326,11 +350,23 @@
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/savecomptedata"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/save"
+                    app:layout_constraintBottom_toBottomOf="@+id/edit_account"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_account"
+                    app:layout_constraintStart_toStartOf="@+id/edit_account"
+                    app:layout_constraintTop_toTopOf="@+id/edit_account"
+                    tools:ignore="MissingConstraints" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="168dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="24dp"
@@ -368,6 +404,8 @@
                     android:layout_marginStart="40dp"
                     android:layout_marginLeft="40dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginBottom="24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView5"
                     app:srcCompat="@drawable/dark" />
@@ -378,10 +416,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginLeft="32dp"
-                    android:fontFamily="@font/bold"
-                    android:text="Dark Mode"
+                    android:fontFamily="@font/regular"
+                    android:text="@string/dark_mode"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView4"
                     app:layout_constraintStart_toEndOf="@+id/imageView4"
                     app:layout_constraintTop_toTopOf="@+id/imageView4" />
@@ -392,7 +430,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="32dp"
                     android:layout_marginRight="32dp"
-                    android:textSize="5sp"
                     android:thumb="@drawable/thumb1"
                     android:track="@drawable/track"
                     app:layout_constraintBottom_toBottomOf="@+id/textView6"

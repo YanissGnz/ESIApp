@@ -1,12 +1,8 @@
 package com.example.esiapp.adapters;
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +10,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.example.esiapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -25,6 +30,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -35,11 +41,13 @@ import java.util.Objects;
 public class PostDetail extends AppCompatActivity
 {
     // les vues de l'activité
-    ImageView postPicture, PostLikeImage, PostCommentImage;
-    Button Add_comment;
-    TextView Subject, description, UserName, PostDate, Liketext, CommentText;
+    ImageView postPicture, back, userPicture;
+    Button AddComment;
+    TextView Subject, description, UserName, PostDate, CommentText;
     EditText CommentEditText;
     RecyclerView CommentList;
+    ConstraintLayout like, comment;
+    CardView cardView;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     FirebaseDatabase firebaseDatabase;
@@ -69,53 +77,65 @@ public class PostDetail extends AppCompatActivity
         PostDate.setText(date);
         // get post id
         PostKey = getIntent().getExtras().getString("postKey");
-        /* pour la photo de l'utilisateur (khelina menha)
-        String userpostImage = getIntent().getExtras().getString("userPhoto");
-        Glide.with(this).load(userpostImage).into(imgUserPost);*/
-        Add_comment.setOnClickListener(new View.OnClickListener() {
+     //   Glide.with(this).load(userpostImage).into(imgUserPost);
+        AddComment.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
                 //   Add_comment.setVisibility(View.INVISIBLE);
                 String comment_content = CommentEditText.getText().toString().trim();
                 String uid = firebaseUser.getUid();
-                String uname = firebaseUser.getEmail();
+                FirebaseAuth mAuth;
+                mAuth = FirebaseAuth.getInstance();
+                FirebaseUser currentUser ;
+                currentUser = mAuth.getCurrentUser();
+                String uname = currentUser.getDisplayName();
                 DatabaseReference commentReference = firebaseDatabase.getReference(COMMENT_KEY).child(PostKey).push();
                 // String uimg = Objects.requireNonNull(firebaseUser.getPhotoUrl()).toString();
                 Comment comment = new Comment(comment_content, uid, uname);
-                commentReference.setValue(comment).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        showMessage("comment added");
-                        CommentEditText.setText("");
-                        Add_comment.setVisibility(View.VISIBLE);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        showMessage("fail to add comment : " + e.getMessage());
-                    }
-                });
+                if (TextUtils.isEmpty(comment_content))
+                    PostDetail.this.CommentEditText.setError("Please write a comment");
+                else {
+                    commentReference.setValue(comment).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            showMessage("Comment added");
+                            CommentEditText.setText("");
+                            AddComment.setVisibility(View.VISIBLE);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            showMessage("Fail to add comment : " + e.getMessage());
+                        }
+                    });
+                }
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
         iniRvComment();
     }
-    //********************************* Les methodes ******************************************************************
+    //********************************* Les methodes ****************************************************************
     public void SetViews() {
         postPicture = findViewById(R.id.post_detail_picture);
-        postPicture.setMaxHeight(500);
-        PostLikeImage = findViewById(R.id.imageView7);
-        PostCommentImage = findViewById(R.id.imageView9);
-        Add_comment = findViewById(R.id.button);
         Subject = findViewById(R.id.post_detail_subject);
         description = findViewById(R.id.post_detail_descreption);
-        UserName = findViewById(R.id.post_detail_pesron);
+        UserName = findViewById(R.id.post_detail_pesron_name);
         PostDate = findViewById(R.id.post_detail_date);
-        Liketext = findViewById(R.id.textView4);
         CommentText = findViewById(R.id.comment_content);
+        userPicture = findViewById(R.id.post_detail_profile_picture);
+        AddComment = findViewById(R.id.add_comment);
         CommentEditText = findViewById(R.id.post_detail_comment_text);
-        CommentEditText.setMaxHeight(300);
         CommentList = findViewById(R.id.rv_comment);
+        back = findViewById(R.id.post_detail_back);
+        comment = findViewById(R.id.comment_btn);
+        like = findViewById(R.id.like_btn);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -125,7 +145,7 @@ public class PostDetail extends AppCompatActivity
     {
         Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
         calendar.setTimeInMillis(time);
-        return DateFormat.format("MMM dd yyyy", calendar).toString();
+        return DateFormat.format("dd MMMM yyyy", calendar).toString();
     }
     public void showMessage(String message)
     {

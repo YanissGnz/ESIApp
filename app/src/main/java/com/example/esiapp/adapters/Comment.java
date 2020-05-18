@@ -1,28 +1,33 @@
-package  com.example.esiapp.adapters;
+package com.example.esiapp.adapters;
+
+//import com.google.firebase.database.ServerValue;
+
 import com.google.firebase.database.ServerValue;
 
 public class Comment {
 
-    private String content,uid,uname;
+    private String content,uid,uimg,uname;
     private Object timestamp;
 
 
     public Comment() {
     }
 
-    public Comment(String content, String uid,  String uname) {
+    public Comment(String content, String uid, String uname) {
         this.content = content;
         this.uid = uid;
-        //   this.uimg = uimg;
+        this.uimg = uimg;
         this.uname = uname;
+
+        //nahi el commetaire 3la l'instruction hadi ki nt'mporter el fire base
         this.timestamp = ServerValue.TIMESTAMP;
 
     }
 
-    public Comment(String content, String uid, String uname, Object timestamp) {
+    public Comment(String content, String uid, String uimg, String uname, Object timestamp) {
         this.content = content;
         this.uid = uid;
-        //   this.uimg = uimg;
+        this.uimg = uimg;
         this.uname = uname;
         this.timestamp = timestamp;
     }
@@ -43,15 +48,13 @@ public class Comment {
         this.uid = uid;
     }
 
-   /* public String getUimg() {
+    public String getUimg() {
         return uimg;
     }
 
     public void setUimg(String uimg) {
         this.uimg = uimg;
     }
-
-    */
 
     public String getUname() {
         return uname;
