@@ -1,6 +1,5 @@
 package com.example.esiapp.adapters;
 
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -64,11 +63,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             public void onClick(View v) {
                 if (holder.post_adapter_like.getTag().equals("like")){
                     FirebaseDatabase.getInstance().getReference()
-                            .child("likes").child(mData.get(position).getPostKey()).child(userId).setValue(true);
+                            .child("likes").child(mData.get(position).getPostKey()).child(userId).child("is like").setValue("true");
                 }
                 else {
                     FirebaseDatabase.getInstance().getReference()
-                            .child("likes").child(mData.get(position).getPostKey()).child(userId).removeValue();
+                            .child("likes").child(mData.get(position).getPostKey()).child(userId).child("is like").removeValue();
                 }
             }
         });
@@ -83,32 +82,43 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     {
         TextView tvTitle, number_Likes, time, userName, tvDescription, likeText;
         ImageView imgPost, post_adapter_like, imgPostProfile;
-        ConstraintLayout likeContainer;
-
+        ConstraintLayout likeContainer,comment;
         @RequiresApi(api = Build.VERSION_CODES.N)
         MyViewHolder(View itemView)
         {
             super(itemView);
-
             tvTitle = itemView.findViewById(R.id.post_subject);
             tvDescription=itemView.findViewById(R.id.post_description);
             imgPost = itemView.findViewById(R.id.post_picture);
-            imgPostProfile = itemView.findViewById(R.id.post_picture);
             time = itemView.findViewById(R.id.post_date);
             userName= itemView.findViewById(R.id.person_name);
             post_adapter_like=itemView.findViewById(R.id.post_adaper_like);
             number_Likes= itemView.findViewById(R.id.like_num);
             likeContainer = itemView.findViewById(R.id.post_adapter_like);
             likeText = itemView.findViewById(R.id.like_text);
-
-
-
+            comment = itemView.findViewById(R.id.post_adapter_comment);
             imgPost.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent postDetailActivity = new Intent(mContext, PostDetail.class);
                     int position = getAdapterPosition();
-                    postDetailActivity.putExtra("title",mData.get(position).getTitle());
+                    postDetailActivity.putExtra("userId",mData.get(position).getUserId());
+                    postDetailActivity.putExtra("postImage",mData.get(position).getPicture());
+                    postDetailActivity.putExtra("description",mData.get(position).getDescription());
+                    postDetailActivity.putExtra("postKey",mData.get(position).getPostKey());
+                    //postDetailActivity.putExtra("userPhoto",mData.get(position).getUserPhoto());
+                    postDetailActivity.putExtra("userName",mData.get(position).getUserName());
+                    long timestamp  = (long) mData.get(position).getTimeStamp();
+                    postDetailActivity.putExtra("postDate",timestamp) ;
+                    mContext.startActivity(postDetailActivity);
+                }
+            });
+            comment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent postDetailActivity = new Intent(mContext, PostDetail.class);
+                    int position = getAdapterPosition();
+                    postDetailActivity.putExtra("userId",mData.get(position).getUserId());
                     postDetailActivity.putExtra("postImage",mData.get(position).getPicture());
                     postDetailActivity.putExtra("description",mData.get(position).getDescription());
                     postDetailActivity.putExtra("postKey",mData.get(position).getPostKey());
@@ -121,8 +131,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             });
 
         }
-
-
     }
     private String timestampToString(long time) {
 
@@ -134,6 +142,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
                 .child("likes").child(postid);
         reference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child(userId).exists()) {
@@ -141,6 +150,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                     img.setTag("liked");
                     text.setText("Liked");
                     text.setTextColor(Color.parseColor("#0090FF"));
+
                 } else {
                     img.setImageResource(R.drawable.like);
                     img.setTag("like");
@@ -169,3 +179,4 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         });
     }
 }
+

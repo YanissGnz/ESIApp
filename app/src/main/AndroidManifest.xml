@@ -17,8 +17,10 @@
         <activity android:name=".AddPost" />
         <activity android:name=".PasswordReset" />
         <activity android:name=".Home" />
+        <activity android:name=".Addtodo"/>
         <activity android:name=".SignUp" />
-        <activity android:name=".Login">
+        <activity android:name=".Login"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

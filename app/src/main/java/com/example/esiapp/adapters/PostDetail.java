@@ -1,5 +1,6 @@
 package com.example.esiapp.adapters;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -38,16 +39,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-public class PostDetail extends AppCompatActivity
-{
+public class PostDetail extends AppCompatActivity {
     // les vues de l'activité
-    ImageView postPicture, back, userPicture;
+    ImageView postPicture, back, userPicture, img;
     Button AddComment;
-    TextView Subject, description, UserName, PostDate, CommentText;
+    TextView Subject, description, UserName, PostDate, CommentText, text;
     EditText CommentEditText;
     RecyclerView CommentList;
-    ConstraintLayout like, comment;
-    CardView cardView;
+    ConstraintLayout comment;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     FirebaseDatabase firebaseDatabase;
@@ -55,6 +54,7 @@ public class PostDetail extends AppCompatActivity
     static String COMMENT_KEY = "Comment";
     CommentAdapter commentAdapter;
     String PostKey;
+
     //******************************************LA methode onCreate ***************************************************
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -77,7 +77,32 @@ public class PostDetail extends AppCompatActivity
         PostDate.setText(date);
         // get post id
         PostKey = getIntent().getExtras().getString("postKey");
-     //   Glide.with(this).load(userpostImage).into(imgUserPost);
+        String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference()
+                .child("likes").child(PostKey).child(userId).child("is like");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //  String value = dataSnapshot.getValue(String.class);
+                if (dataSnapshot.exists()) {
+                    img.setImageResource(R.drawable.like_clickled);
+                    text.setText("Liked");
+                    text.setTextColor(Color.parseColor("#0090FF"));
+
+                } else {
+                    img.setImageResource(R.drawable.like);
+                    text.setText("Like");
+                    text.setTextColor(Color.parseColor("#000000"));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(PostDetail.this, "Error fetching data", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
         AddComment.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
@@ -87,8 +112,9 @@ public class PostDetail extends AppCompatActivity
                 String uid = firebaseUser.getUid();
                 FirebaseAuth mAuth;
                 mAuth = FirebaseAuth.getInstance();
-                FirebaseUser currentUser ;
+                FirebaseUser currentUser;
                 currentUser = mAuth.getCurrentUser();
+                assert currentUser != null;
                 String uname = currentUser.getDisplayName();
                 DatabaseReference commentReference = firebaseDatabase.getReference(COMMENT_KEY).child(PostKey).push();
                 // String uimg = Objects.requireNonNull(firebaseUser.getPhotoUrl()).toString();
@@ -121,6 +147,7 @@ public class PostDetail extends AppCompatActivity
         });
         iniRvComment();
     }
+
     //********************************* Les methodes ****************************************************************
     public void SetViews() {
         postPicture = findViewById(R.id.post_detail_picture);
@@ -135,34 +162,32 @@ public class PostDetail extends AppCompatActivity
         CommentList = findViewById(R.id.rv_comment);
         back = findViewById(R.id.post_detail_back);
         comment = findViewById(R.id.comment_btn);
-        like = findViewById(R.id.like_btn);
+        img = findViewById(R.id.like_img);
+        text = findViewById(R.id.like_txt);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
     }
+
     @NonNull
-    private String timestampToString(long time)
-    {
+    private String timestampToString(long time) {
         Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
         calendar.setTimeInMillis(time);
         return DateFormat.format("dd MMMM yyyy", calendar).toString();
     }
-    public void showMessage(String message)
-    {
+
+    public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
-    private void iniRvComment()
-    {
+
+    private void iniRvComment() {
         CommentList.setLayoutManager(new LinearLayoutManager(this));
         DatabaseReference commentRef = firebaseDatabase.getReference(COMMENT_KEY).child(PostKey);
-        commentRef.addValueEventListener(new ValueEventListener()
-        {
+        commentRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
-            {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 listComment = new ArrayList<>();
-                for (DataSnapshot snap : dataSnapshot.getChildren())
-                {
+                for (DataSnapshot snap : dataSnapshot.getChildren()) {
                     Comment comment = snap.getValue(Comment.class);
                     listComment.add(comment);
                 }
@@ -170,11 +195,10 @@ public class PostDetail extends AppCompatActivity
                 Collections.reverse(listComment);
                 CommentList.setAdapter(commentAdapter);
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
     }
-
-
 }
