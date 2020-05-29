@@ -1,47 +1,43 @@
 package com.example.esiapp.adapters;
 
+import com.google.firebase.database.ServerValue;
 
 public class Notetodo {
-
     private String text;
-    private String date;
-    private String time;
+    private long time;
+    private String TodoKey;
     private String uname;
-    private String Key;
-    private long time_in_milli;
-    public Notetodo(String text, String date, String time, String uname,  long time_in_milli) {
+    private Object timeStamp;
+    public Notetodo(String text, long time, String uname) {
         this.text = text;
-        this.date = date;
         this.time = time;
         this.uname = uname;
-        this.time_in_milli = time_in_milli;
+        this.timeStamp = ServerValue.TIMESTAMP;
+
+
+    }
+
+    public Object getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(Object timeStamp) {
+        this.timeStamp = timeStamp;
     }
 
 
-    public long getTime_in_milli() {
-        return time_in_milli;
+
+    public String getTodoKey() {
+        return TodoKey;
     }
 
-    public void setTime_in_milli(long time_in_milli) {
-        this.time_in_milli = time_in_milli;
+    public void setTodoKey(String todoKey) {
+        TodoKey = todoKey;
     }
 
-    public String getKey() {
-        return Key;
-    }
 
-    public void setKey(String key) {
-        Key = key;
-    }
 
     public Notetodo() {
-    }
-
-    public Notetodo(String text, String date, String time, String uname) {
-        this.text = text;
-        this.date = date;
-        this.time = time;
-        this.uname = uname;
     }
 
     public String getText() {
@@ -52,19 +48,11 @@ public class Notetodo {
         this.text = text;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getTime() {
+    public long getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(long time) {
         this.time = time;
     }
 
@@ -74,15 +62,5 @@ public class Notetodo {
 
     public void setUname(String uname) {
         this.uname = uname;
-    }
-
-    @Override
-    public String toString() {
-        return "Note{" +
-                "text='" + text + '\'' +
-                ", completed=" + uname +
-                ", created=" + date +
-                ", userId='" + time + '\'' +
-                '}';
     }
 }

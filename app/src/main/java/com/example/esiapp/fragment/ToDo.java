@@ -9,8 +9,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -22,17 +20,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.esiapp.Addtodo;
 import com.example.esiapp.R;
 import com.example.esiapp.adapters.Notetodo;
-import com.example.esiapp.adapters.Post;
-import com.example.esiapp.adapters.PostAdapter;
 import com.example.esiapp.adapters.TodoAdapter;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,9 +39,8 @@ public class ToDo extends Fragment {
     private DatabaseReference databaseReference;
     private List<Notetodo> todolist;
     private ConstraintLayout addtodo;
-    private FirebaseAuth Auth;
-    private FirebaseUser firebaseUser;
-    private String userId;
+
+
     public ToDo() {
     }
     @Override
@@ -82,15 +75,13 @@ public class ToDo extends Fragment {
             }
 
         });
-        userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         databaseReference.child(userId).addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 todolist = new ArrayList<>();
                 for (DataSnapshot postsnap : dataSnapshot.getChildren()) {
-
                     Notetodo notetodo = postsnap.getValue(Notetodo.class);
                     todolist.add(notetodo);
                 }

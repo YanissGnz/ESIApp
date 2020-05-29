@@ -1,5 +1,5 @@
 package com.example.esiapp.fragment;
-import android.annotation.SuppressLint;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,16 +19,13 @@ import androidx.fragment.app.Fragment;
 
 import com.example.esiapp.Info;
 import com.example.esiapp.R;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-//import com.hsalf.smilerating.BaseRating;
-//import com.hsalf.smilerating.SmileRating;
+import com.hsalf.smilerating.BaseRating;
+import com.hsalf.smilerating.SmileRating;
 
 import java.util.Objects;
 
@@ -40,7 +35,7 @@ public class feedback extends Fragment {
     private TextView name;
     private TextView email;
     private EditText message;
-   // private SmileRating smileRating;
+    private SmileRating smileRating;
     private String TAG = "App";
     private int level;
     public feedback() {
@@ -55,11 +50,11 @@ public class feedback extends Fragment {
         message = view.findViewById(R.id.feedback);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-       // smileRating = view.findViewById(R.id.smile_rating);
+        smileRating = view.findViewById(R.id.smile_rating);
         return view;
     }
 
-    /*@RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void onStart() {
         super.onStart();
         name.setText(currentUser.getDisplayName());
@@ -112,7 +107,7 @@ public class feedback extends Fragment {
     private void showMessage()
     {
         Toast.makeText(getActivity(), "thank you for you feedback ", Toast.LENGTH_LONG).show();
-    }*/
+    }
 }
 
 

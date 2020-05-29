@@ -24,7 +24,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-// import com.example.esiapp.fragment.ToDo;
 
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -51,7 +50,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         navUsername.setText(currentUser.getDisplayName());
         // now we will use Glide to load user image
         // Glide.with(this).load(currentUser.getPhotoUrl()).into(navUserPhot);
-
         //Add New Post
         addPost = findViewById(R.id.addpost_button);
         addPost.setOnClickListener(new View.OnClickListener() {

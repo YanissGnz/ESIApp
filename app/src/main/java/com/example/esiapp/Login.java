@@ -1,7 +1,8 @@
 package com.example.esiapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -18,6 +20,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Objects;
 
 public class Login extends AppCompatActivity {
 
@@ -26,19 +31,15 @@ public class Login extends AppCompatActivity {
     TextInputLayout Email, Password;
     private FirebaseAuth fAuth;
     ProgressBar progressBar;
-    public static final String SHARED_PREFS = "sharedPrefs";
-    public static    String LOGIN = "LOGIN";
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
-    boolean loggedIn;
-
+    FirebaseUser curentuser;
+  //  FirebaseAuth.AuthStateListener authStateListener;
+    @SuppressLint("CommitPrefEdits")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         //Init
-
         login = findViewById(R.id.login);
         signUp = findViewById(R.id.sign_up);
         forgetPassword = findViewById(R.id.forget_password);
@@ -47,29 +48,27 @@ public class Login extends AppCompatActivity {
         Password = findViewById(R.id.login_password);
         progressBar = findViewById(R.id.login_progressBar);
         progressBar.setVisibility(View.INVISIBLE);
-
-        sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-        loggedIn = false;
+        curentuser = fAuth.getCurrentUser();
 
         //____________________________________Login Button______________________________________
         login.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
-                String sEmail = Email.getEditText().getText().toString().trim();
-                String sPassword = Password.getEditText().getText().toString().trim();
+                final String sEmail = Objects.requireNonNull(Email.getEditText()).getText().toString().trim();
+                final String sPassword = Password.getEditText().getText().toString().trim();
                 if (validate()) {
                     login.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
+
                     fAuth.signInWithEmailAndPassword(sEmail, sPassword)
                             .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
-                                    if (fAuth.getCurrentUser().isEmailVerified()) {
-                                        editor.putBoolean(LOGIN, true);
-                                        editor.apply();
-                                        startActivity(new Intent(Login.this, Home.class));
-                                        finish();
+                                    if (Objects.requireNonNull(fAuth.getCurrentUser()).isEmailVerified()) {
+                                        Toast.makeText(Login.this, "Log in successfully", Toast.LENGTH_SHORT).show();
+                                        startHomeActivity();
                                     } else {
                                         Toast.makeText(Login.this, "Please verify your Email", Toast.LENGTH_SHORT).show();
                                         login.setVisibility(View.VISIBLE);
@@ -89,11 +88,24 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
-        //loggedIn = sharedPreferences.getBoolean(LOGIN, false);
-        if (loggedIn) {
-            startActivity(new Intent(Login.this, Home.class));
-            finish();
-        }
+        // ___________________________________authstatelistener__________________________________
+       /* authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser firebaseuser = firebaseAuth.getCurrentUser();
+                if (firebaseuser != null&& curentuser.isEmailVerified()) {
+                    startHomeActivity();
+                }
+                else {
+                    Toast.makeText(Login.this, " email not verified !! ", Toast.LENGTH_SHORT).show();
+
+                }
+
+           }
+        };
+
+        */
+
         //____________________________________Password reset____________________________________
         forgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,8 +127,27 @@ public class Login extends AppCompatActivity {
         });
     }
 
+    protected void onStart() {
+        super.onStart();
+    }
 
-    private boolean validate() {
+    protected void onStop() {
+        super.onStop();
+    }
+
+    protected void onResume() {
+        super.onResume();
+      //  fAuth.addAuthStateListener(authStateListener);
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //if (authStateListener != null) {
+          //  if (fAuth != null)
+            //    fAuth.removeAuthStateListener(authStateListener);
+        //}
+    }
+    private boolean validate () {
         boolean result;
         String SPassword = Password.getEditText().getText().toString().trim();
         String SEmail = Email.getEditText().getText().toString().trim();
@@ -135,4 +166,13 @@ public class Login extends AppCompatActivity {
         }
         return result;
     }
+    private void startHomeActivity () {
+        Intent intent = new Intent(this, Home.class);
+        startActivity(intent);
+        finish();
+    }
+
+
 }
+
+

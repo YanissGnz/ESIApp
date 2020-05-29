@@ -2,19 +2,70 @@ package com.example.esiapp;
 
 public class Info
 {
+    private String Gender ;
+    private String Grad ;
+    private String Groupe ;
+    private String email ;
+    private String message ;
+    private String answer;
 
-    public Info(){}
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    private  String name;
+
+    public Info(){
+
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public Info(String gender, String grad, String groupe)
     {
-        Gender = gender;
-        Grad = grad;
-        Groupe = groupe;
+        this.Gender = gender;
+        this.Grad = grad;
+        this.Groupe = groupe;
     }
 
-    String Gender ;
-    String Grad ;
-    String Groupe ;
+
+    public Info(String name, String email, String message,String answer)
+    {
+        this.email = email;
+        this.message = message;
+        this.answer = answer;
+        this.name = name;
+
+    }
+
+
+
 
     public String getGender() {
         return Gender;
@@ -40,3 +91,4 @@ public class Info
         Groupe = groupe;
     }
 }
+

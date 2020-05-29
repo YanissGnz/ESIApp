@@ -51,7 +51,6 @@ public class SignUp extends AppCompatActivity {
                 final String sEmail = Objects.requireNonNull(email.getEditText()).getText().toString();
                 String sPassword = Objects.requireNonNull(password.getEditText()).getText().toString();
                 final String username = Objects.requireNonNull(fullname.getEditText()).getText().toString();
-                FirebaseUser User = mAuth.getCurrentUser();
                 if (validate()) {
                     signUp.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
@@ -116,27 +115,6 @@ public class SignUp extends AppCompatActivity {
         }
         return result;
     }
-
-   /* public void sendEmailVerification() {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        final FirebaseUser user = auth.getCurrentUser();
-
-        assert user != null;
-        user.sendEmailVerification()
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-
-                            Toast.makeText(SignUp.this, "Verification email sent", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(SignUp.this, "Failed to sent Verification", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                });
-    }*/
-
     @Override
     public void finish() {
         super.finish();
@@ -167,7 +145,6 @@ public class SignUp extends AppCompatActivity {
         Intent Login = new Intent(getApplicationContext(), com.example.esiapp.Login.class);
         startActivity(Login);
         finish();
-
-
     }
 }
+

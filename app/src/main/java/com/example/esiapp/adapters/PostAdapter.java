@@ -31,6 +31,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+import static com.example.esiapp.adapters.PostDetail.COMMENT_KEY;
+
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> {
     private Context mContext;
     private List<Post> mData ;
@@ -71,6 +73,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                 }
             }
         });
+        comment_number(holder.comment_num,mData.get(position).getPostKey());
 
         //Glide.with(mContext).load(mData.get(position).getUserPhoto()).into(holder.imgPostProfile);
     }
@@ -80,13 +83,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     }
     class MyViewHolder extends RecyclerView.ViewHolder
     {
-        TextView tvTitle, number_Likes, time, userName, tvDescription, likeText;
+        TextView tvTitle, number_Likes, time, userName, tvDescription, likeText,comment_num;
         ImageView imgPost, post_adapter_like, imgPostProfile;
         ConstraintLayout likeContainer,comment;
         @RequiresApi(api = Build.VERSION_CODES.N)
         MyViewHolder(View itemView)
         {
             super(itemView);
+            comment_num=itemView.findViewById(R.id.num_comment);
             tvTitle = itemView.findViewById(R.id.post_subject);
             tvDescription=itemView.findViewById(R.id.post_description);
             imgPost = itemView.findViewById(R.id.post_picture);
@@ -136,7 +140,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
         Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
         calendar.setTimeInMillis(time);
-        return DateFormat.format("dd MMMM yyyy à HH:mm ",calendar).toString();
+        return DateFormat.format("dd MMM yyyy à HH:mm ",calendar).toString();
     }
     private void like (String postid, final ImageView img, final TextView text) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
@@ -171,6 +175,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 likes.setText(""+ dataSnapshot.getChildrenCount());
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    private void comment_number (final TextView  num_comment, String postId) {
+        DatabaseReference comment_ref = FirebaseDatabase.getInstance().getReference(COMMENT_KEY).child(postId);
+        comment_ref.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                num_comment.setText(""+ dataSnapshot.getChildrenCount());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

@@ -12,6 +12,7 @@ import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 
+import com.example.esiapp.Home;
 import com.example.esiapp.R;
 
 class NotificationHelper extends ContextWrapper {
@@ -43,6 +44,7 @@ class NotificationHelper extends ContextWrapper {
                 .setColor(Color.BLUE)
                 .setAutoCancel(true)
                 .setOnlyAlertOnce(true)
-                ;
+                .setContentIntent(PendingIntent.getActivity(this, 0, new Intent(this, Home.class), 0));
     }
+
 }
