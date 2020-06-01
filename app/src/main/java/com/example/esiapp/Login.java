@@ -2,11 +2,13 @@ package com.example.esiapp;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,20 +27,18 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Objects;
 
 public class Login extends AppCompatActivity {
-
     Button login;
     TextView signUp, forgetPassword;
     TextInputLayout Email, Password;
     private FirebaseAuth fAuth;
     ProgressBar progressBar;
     FirebaseUser curentuser;
-  //  FirebaseAuth.AuthStateListener authStateListener;
+    FirebaseAuth.AuthStateListener authStateListener;
     @SuppressLint("CommitPrefEdits")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         //Init
         login = findViewById(R.id.login);
         signUp = findViewById(R.id.sign_up);
@@ -55,57 +55,18 @@ public class Login extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
-                final String sEmail = Objects.requireNonNull(Email.getEditText()).getText().toString().trim();
-                final String sPassword = Password.getEditText().getText().toString().trim();
-                if (validate()) {
-                    login.setVisibility(View.INVISIBLE);
-                    progressBar.setVisibility(View.VISIBLE);
-
-                    fAuth.signInWithEmailAndPassword(sEmail, sPassword)
-                            .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-                                @Override
-                                public void onSuccess(AuthResult authResult) {
-                                    if (Objects.requireNonNull(fAuth.getCurrentUser()).isEmailVerified()) {
-                                        Toast.makeText(Login.this, "Log in successfully", Toast.LENGTH_SHORT).show();
-                                        startHomeActivity();
-                                    } else {
-                                        Toast.makeText(Login.this, "Please verify your Email", Toast.LENGTH_SHORT).show();
-                                        login.setVisibility(View.VISIBLE);
-                                        progressBar.setVisibility(View.INVISIBLE);
-                                    }
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            login.setVisibility(View.VISIBLE);
-                            progressBar.setVisibility(View.INVISIBLE);
-                            Toast.makeText(Login.this, "Email or Password incorrect", Toast.LENGTH_SHORT).show();
-                            login.setVisibility(View.VISIBLE);
-                            progressBar.setVisibility(View.INVISIBLE);
-                        }
-                    });
-                }
+                setLogin();
             }
         });
         // ___________________________________authstatelistener__________________________________
-       /* authStateListener = new FirebaseAuth.AuthStateListener() {
+        authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser firebaseuser = firebaseAuth.getCurrentUser();
-                if (firebaseuser != null&& curentuser.isEmailVerified()) {
+                if (curentuser != null&& curentuser.isEmailVerified()) {
                     startHomeActivity();
                 }
-                else {
-                    Toast.makeText(Login.this, " email not verified !! ", Toast.LENGTH_SHORT).show();
-
-                }
-
-           }
+            }
         };
-
-        */
-
         //____________________________________Password reset____________________________________
         forgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,15 +98,15 @@ public class Login extends AppCompatActivity {
 
     protected void onResume() {
         super.onResume();
-      //  fAuth.addAuthStateListener(authStateListener);
+        fAuth.addAuthStateListener(authStateListener);
     }
     @Override
     protected void onPause() {
         super.onPause();
-        //if (authStateListener != null) {
-          //  if (fAuth != null)
-            //    fAuth.removeAuthStateListener(authStateListener);
-        //}
+        if (authStateListener != null) {
+            if (fAuth != null)
+                fAuth.removeAuthStateListener(authStateListener);
+        }
     }
     private boolean validate () {
         boolean result;
@@ -171,8 +132,37 @@ public class Login extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private  void setLogin(){
+        final String sEmail = Objects.requireNonNull(Email.getEditText()).getText().toString().trim();
+        final String sPassword = Password.getEditText().getText().toString().trim();
+        if (validate()) {
+            login.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
+            fAuth.signInWithEmailAndPassword(sEmail, sPassword)
+                    .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                        @Override
+                        public void onSuccess(AuthResult authResult) {
+                            if (Objects.requireNonNull(fAuth.getCurrentUser()).isEmailVerified()) {
+                                Toast.makeText(Login.this, "Log in successfully", Toast.LENGTH_SHORT).show();
+                                startHomeActivity();
+                            } else {
+                                Toast.makeText(Login.this, "Please verify your Email", Toast.LENGTH_SHORT).show();
+                                login.setVisibility(View.VISIBLE);
+                                progressBar.setVisibility(View.INVISIBLE);
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    login.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.INVISIBLE);
+                    Toast.makeText(Login.this, "Email or Password incorrect", Toast.LENGTH_SHORT).show();
+                    login.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.INVISIBLE);
+                }
+            });
+        }
+    }
 }
-
-

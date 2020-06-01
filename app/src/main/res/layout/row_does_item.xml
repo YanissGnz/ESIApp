@@ -3,26 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="wrap_content"
     android:layout_marginLeft="15dp"
     android:layout_marginTop="2dp"
     android:layout_marginRight="15dp"
     android:layout_marginBottom="15dp"
     android:background="@drawable/does_bg"
-    android:elevation="6dp">
+    android:elevation="6dp"
+    android:minHeight="60dp">
 
 
     <TextView
         android:id="@+id/to_do_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/bold"
         android:text="Title"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/to_do_time"
         app:layout_constraintStart_toEndOf="@+id/activate"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,15 +36,16 @@
         android:id="@+id/to_do_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="100dp"
-        android:layout_marginRight="100dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="2dp"
         android:fontFamily="@font/bold"
         android:text="Now"
         android:textColor="@color/colorPrimary"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@+id/reminder_active"
+        app:layout_constraintEnd_toStartOf="@+id/reminder_active"
+        app:layout_constraintTop_toTopOf="@+id/reminder_active"
         app:layout_constraintVertical_bias="0.457" />
 
     <RadioButton
@@ -64,6 +71,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.52"
         app:srcCompat="@drawable/remider_desactive" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

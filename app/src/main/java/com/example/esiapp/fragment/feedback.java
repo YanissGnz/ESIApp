@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import com.example.esiapp.Info;
 import com.example.esiapp.R;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -34,7 +35,7 @@ public class feedback extends Fragment {
     private Button send;
     private TextView name;
     private TextView email;
-    private EditText message;
+    private TextInputLayout message;
     private SmileRating smileRating;
     private String TAG = "App";
     private int level;
@@ -89,10 +90,10 @@ public class feedback extends Fragment {
             public void onClick(View v) {
                 final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
                 final String userId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-                if (TextUtils.isEmpty(Objects.requireNonNull(message.getText()).toString())) {
+                if (TextUtils.isEmpty(Objects.requireNonNull(message.getEditText().getText()).toString())) {
                     feedback.this.message.setError("message is required");
                 }
-                Info info = new Info(currentUser.getDisplayName(),currentUser.getEmail(), Objects.requireNonNull(message.getText()).toString(),String.valueOf(level));
+                Info info = new Info(currentUser.getDisplayName(),currentUser.getEmail(), Objects.requireNonNull(message.getEditText().getText()).toString(),String.valueOf(level));
                 DatabaseReference refer = firebaseDatabase.getReference("feedback").child(userId);
                 refer.setValue(info).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -106,7 +107,7 @@ public class feedback extends Fragment {
 
     private void showMessage()
     {
-        Toast.makeText(getActivity(), "thank you for you feedback ", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "Thank you for you feedback :)", Toast.LENGTH_LONG).show();
     }
 }
 

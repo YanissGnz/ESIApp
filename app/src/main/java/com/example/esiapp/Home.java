@@ -87,7 +87,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 click.start();
                 addPost.setVisibility(View.VISIBLE);
                 break;
-            case R.id.planner:
+            case R.id.todo:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new ToDo()).commit();
                 click.start();

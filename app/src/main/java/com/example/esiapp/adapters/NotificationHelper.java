@@ -36,11 +36,11 @@ class NotificationHelper extends ContextWrapper {
         }
         return mManager;
     }
-    public NotificationCompat.Builder getChannelNotification() {
+    public NotificationCompat.Builder getChannelNotification(String message) {
         return new NotificationCompat.Builder(getApplicationContext(), channelID)
                 .setSmallIcon(R.drawable.reminder)
-                .setContentTitle("Alarm!")
-                .setContentText("Your AlarmManager is working.")
+                .setContentTitle(message)
+                .setContentText("You have a task to do!")
                 .setColor(Color.BLUE)
                 .setAutoCancel(true)
                 .setOnlyAlertOnce(true)

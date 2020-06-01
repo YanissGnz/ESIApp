@@ -6,12 +6,15 @@
         <item android:id="@+id/home"
             android:icon="@drawable/icons"
             android:title="@string/home"/>
-        <item android:id="@+id/planner"
+        <item android:id="@+id/todo"
             android:icon="@drawable/plan"
-            android:title="@string/planner"/>
+            android:title="@string/todo"/>
         <item android:id="@+id/courses"
             android:icon="@drawable/course"
             android:title="@string/courses"/>
+        <item android:id="@+id/notes"
+            android:icon="@drawable/note"
+            android:title="@string/notes"/>
         <item android:id="@+id/profile"
             android:icon="@drawable/user"
             android:title="@string/profile"/>
@@ -20,14 +23,14 @@
             android:title="Log Out"/>
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="@string/communicate">
         <menu>
             <item android:id="@+id/nav_share"
                 android:icon="@drawable/share"
-                android:title="Share"/>
+                android:title="@string/share"/>
             <item android:id="@+id/nav_feedback"
                 android:icon="@drawable/feedback"
-                android:title="FeedBack"/>
+                android:title="@string/feedback"/>
         </menu>
     </item>
 

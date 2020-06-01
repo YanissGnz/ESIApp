@@ -121,12 +121,11 @@ public class TodoAdapter extends RecyclerView.Adapter <TodoAdapter.MyViewHolder>
             timetext = itemView.findViewById(R.id.to_do_time);
             faitoupas = itemView.findViewById(R.id.activate);
             alarme=itemView.findViewById(R.id.reminder_active);
-
         }
     }
     private String timestampToString(long time) {
         Calendar calendar = Calendar.getInstance(Locale.ENGLISH);
         calendar.setTimeInMillis(time);
-        return DateFormat.format(" HH:mm ", calendar).toString();
+        return DateFormat.format("dd MMM yyyy à HH:mm ", calendar).toString();
     }
-    }
+}

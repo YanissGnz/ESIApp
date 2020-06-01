@@ -2,7 +2,8 @@
     <string name="app_name">Esi Plus</string>
     <string name="home">Home</string>
     <string name="courses">Courses</string>
-    <string name="planner">Planner</string>
+    <string name="todo">To Do</string>
+    <string name="notes">Notes</string>
     <string name="profile">Profile</string>
 
     <string-array name="groupe">
@@ -84,5 +85,12 @@
     <string name="task_title">Task Title</string>
     <string name="add">Add</string>
     <string name="new_task">New Task</string>
+    <string name="pick_a_date">Pick a date</string>
+    <string name="enter_task_title">Enter task title</string>
+    <string name="pick_a_time">Pick a time</string>
+    <string name="communicate">Communicate</string>
+    <string name="share">Share</string>
+    <string name="feedback">FeedBack</string>
+    <string name="send_feedback">Send Feedback</string>
 
 </resources>

@@ -28,12 +28,10 @@ public class SignUp extends AppCompatActivity {
     TextInputLayout fullname, email, password, confirmPassword;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-
         //___________________________________Init__________________________________
         signUp = findViewById(R.id.next);
         fullname = findViewById(R.id.sign_up_full_name);
@@ -43,7 +41,6 @@ public class SignUp extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.signup_progressBar);
         progressBar.setVisibility(View.INVISIBLE);
-
         signUp.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
@@ -81,16 +78,12 @@ public class SignUp extends AppCompatActivity {
                             });
                 }
             }
-        });
-        ;
+        });;
     }
-
-
     //_______________________________________________________________________________________________
     private boolean validate() {
         boolean result;
         result = true;
-
         if (TextUtils.isEmpty(fullname.getEditText().getText().toString())) {
             SignUp.this.fullname.setError("Please enter your name");
             result = false;
@@ -139,12 +132,9 @@ public class SignUp extends AppCompatActivity {
 
     }
 
-
     private void updateUI() {
-
         Intent Login = new Intent(getApplicationContext(), com.example.esiapp.Login.class);
         startActivity(Login);
         finish();
     }
 }
-
